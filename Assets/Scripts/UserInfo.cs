@@ -9,17 +9,12 @@ public class UserInfo : MonoBehaviour
     public TextMeshProUGUI cashText;
     public TextMeshProUGUI balanceText;
     
-    public UserData lhData;
-    
     void Start()
     {
-        nameText.text = lhData.userName;
-        cashText.text = lhData.cash.ToString("N0");
-        balanceText.text = lhData.balance.ToString("N0");
-    }
-    
-    void Update()
-    {
+        UserData userData = GameManager.Instance.userData;
         
+        nameText.text = userData.name;
+        cashText.text = userData.cash.ToString("N0");
+        balanceText.text = userData.balance.ToString("N0");
     }
 }
