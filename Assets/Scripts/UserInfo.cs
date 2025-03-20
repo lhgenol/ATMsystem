@@ -11,6 +11,11 @@ public class UserInfo : MonoBehaviour
     
     void Start()
     {
+        Refresh();
+    }
+
+    public void Refresh()
+    {
         UserData userData = GameManager.Instance.userData;
         
         nameText.text = userData.name;
