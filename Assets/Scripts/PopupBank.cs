@@ -11,6 +11,7 @@ public class PopupBank : MonoBehaviour
     public GameObject buttonPanel;
     public GameObject errorPanel;
     public TMP_InputField depositInput;
+    public TMP_InputField withdrawInput;
 
     public void OpenDepositPanel()
     {
@@ -44,6 +45,19 @@ public class PopupBank : MonoBehaviour
         }
     }
 
+    public void WithdrawAmount(int amount)
+    {
+        if (GameManager.Instance.userData.balance >= amount)
+        {
+            GameManager.Instance.userData.balance -= amount;
+            GameManager.Instance.UpdateCash(amount);
+        }
+        else
+        {
+            errorPanel.SetActive(true);
+        }
+    }
+
     public void DepositInputAmount()
     {
         if(int.TryParse(depositInput.text, out int amount))
@@ -54,6 +68,22 @@ public class PopupBank : MonoBehaviour
         {
             depositInput.text = "";
         }
+        
+        depositInput.text = "";
+    }
+
+    public void WithdrawInputAmount()
+    {
+        if (int.TryParse(withdrawInput.text, out int amount))
+        {
+            WithdrawAmount(amount);
+        }
+        else
+        {
+            withdrawInput.text = "";
+        }
+        
+        withdrawInput.text = "";
     }
 
     public void CloseErrorPanel()
