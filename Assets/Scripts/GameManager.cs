@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
         }
         
         UpdateName("이현");
-        UpdateCash(500);
-        UpdateBalance(500);
+        UpdateCash(0);
+        UpdateBalance(0);
     }
     
     public void UpdateName(string newName)
