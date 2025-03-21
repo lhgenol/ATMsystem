@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public UserData userData;
+    public static GameManager Instance { get; private set; }
+    [field: SerializeField] public UserData userData { get; private set; }
     public UserInfo userInfo;
 
     private void Awake()
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
         
         userData = new UserData("이현", 100000, 50000);
