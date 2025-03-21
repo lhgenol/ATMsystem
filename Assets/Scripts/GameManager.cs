@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        userData = new UserData("이현", 100000, 50000);
+        userData = new UserData("이유림", 100000, 50000);
     }
 
     public void Start()
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
             userInfo = FindObjectOfType<UserInfo>();
         }
         
-        UpdateName("이유림");
+        UpdateName("이현");
         UpdateCash(500);
         UpdateBalance(500);
     }
