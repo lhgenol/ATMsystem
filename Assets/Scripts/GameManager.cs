@@ -15,12 +15,6 @@ public class GameManager : MonoBehaviour
     public GameObject popupBank;
     public GameObject popupLogin;
 
-    // public const string nameKey = "Name";
-    // public const string cashKey = "Cash";
-    // public const string balanceKey = "Balence";
-    // public const string idKey = "Id";
-    // public const string passwordKey = "Password";
-
     private string savePath;
     
     private void Awake()
@@ -64,6 +58,29 @@ public class GameManager : MonoBehaviour
             userInfo.Refresh();
         }
     }
+
+    public void SaveUserData()
+    {
+        string json = JsonUtility.ToJson(userData); // userData를 Json 형식 문자열로 직렬화
+        File.WriteAllText(savePath, json);  // Json 문자열을 경로에 저장
+        Debug.Log($"저장 성공: {json}");
+    }
+
+    public UserData LoadUserData()
+    {
+        if (File.Exists(savePath))  // json 파일이 있으면 그 안의 데이터를 UserData 객체로 변환
+        {
+            string json = File.ReadAllText(savePath);   // 경로의 파일에서 Json 문자열을 읽음
+            userData = JsonUtility.FromJson<UserData>(json);    // Json 문자열을 userData 객체로 역직렬화
+            Debug.Log($"불러온 데이터: {json}");
+            return userData;
+        }
+        else
+        {
+            Debug.Log("저장된 데이터가 없습니다.");
+            return null;
+        }
+    }
     
     public void UpdateName(string newName)
     {
@@ -84,48 +101,5 @@ public class GameManager : MonoBehaviour
         userData.balance += amount;
         userInfo.Refresh();
         SaveUserData();
-    }
-
-    public void SaveUserData()
-    {
-        // PlayerPrefs.SetString(nameKey, userData.name);
-        // PlayerPrefs.SetInt(cashKey, userData.cash);
-        // PlayerPrefs.SetInt(balanceKey, userData.balance);
-        // PlayerPrefs.SetString(idKey, userData.id);
-        // PlayerPrefs.SetString(passwordKey, userData.password);
-        // PlayerPrefs.Save();
-        
-        string json = JsonUtility.ToJson(userData); // userData를 Json 형식 문자열로 직렬화
-        File.WriteAllText(savePath, json);  // Json 문자열을 경로에 저장
-        Debug.Log($"저장 성공: {json}");
-    }
-
-    public void LoadUserData()
-    {
-        // if (PlayerPrefs.HasKey(nameKey))
-        // {
-        //     string name = PlayerPrefs.GetString(nameKey);
-        //     int cash = PlayerPrefs.GetInt(cashKey);
-        //     int balance = PlayerPrefs.GetInt(balanceKey);
-        //     string id = PlayerPrefs.GetString(idKey);
-        //     string password = PlayerPrefs.GetString(passwordKey);
-        //     
-        //     userData = new UserData(name, cash, balance, id, password);
-        // }
-        // else
-        // {
-        //     userData = new UserData("이현", 100000, 50000, "", "");
-        // }
-
-        if (File.Exists(savePath))  // json 파일이 있으면 그 안의 데이터를 UserData 객체로 변환
-        {
-            string json = File.ReadAllText(savePath);   // 경로의 파일에서 Json 문자열을 읽음
-            userData = JsonUtility.FromJson<UserData>(json);    // Json 문자열을 userData 객체로 역직렬화
-            Debug.Log($"불러온 데이터: {json}");
-        }
-        else
-        {
-            Debug.Log("저장된 데이터가 없습니다.");
-        }
     }
 }
