@@ -8,6 +8,8 @@ public class UserInfo : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI cashText;
     public TextMeshProUGUI balanceText;
+    public TextMeshProUGUI idInputText;
+    public TextMeshProUGUI passwordInputText;
     
     void Start()
     {
@@ -21,5 +23,7 @@ public class UserInfo : MonoBehaviour
         nameText.text = userData.name;
         cashText.text = userData.cash.ToString("N0");
         balanceText.text = userData.balance.ToString("N0");
+        idInputText.text = userData.id;
+        passwordInputText.text = userData.password;
     }
 }

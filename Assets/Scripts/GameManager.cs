@@ -7,8 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [field: SerializeField] public UserData userData { get; private set; }
+    
     public UserInfo userInfo;
+    public GameObject popupBank;
+    public GameObject popupLogin;
 
+    public const string nameKey = "Name";
+    public const string cashKey = "Cash";
+    public const string balanceKey = "Balence";
+    public const string idKey = "Id";
+    public const string passwordKey = "Password";
+    
     private void Awake()
     {
         if (Instance == null)
@@ -22,7 +31,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        // PlayerPrefs.DeleteAll();
         LoadUserData();
     }
 
@@ -33,11 +41,9 @@ public class GameManager : MonoBehaviour
             userInfo = FindObjectOfType<UserInfo>();
         }
         
-        // UpdateName("이현");
-        // UpdateCash(100001);
-        // UpdateBalance(50001);
-        
         SaveUserData();
+        popupBank.SetActive(false);
+        popupLogin.SetActive(true);
     }
     
     public void UpdateName(string newName)
@@ -63,24 +69,29 @@ public class GameManager : MonoBehaviour
 
     public void SaveUserData()
     {
-        PlayerPrefs.SetString("Name", userData.name);
-        PlayerPrefs.SetInt("Cash", userData.cash);
-        PlayerPrefs.SetInt("Balance", userData.balance);
+        PlayerPrefs.SetString(nameKey, userData.name);
+        PlayerPrefs.SetInt(cashKey, userData.cash);
+        PlayerPrefs.SetInt(balanceKey, userData.balance);
+        PlayerPrefs.SetString(idKey, userData.id);
+        PlayerPrefs.SetString(passwordKey, userData.password);
         PlayerPrefs.Save();
     }
 
     public void LoadUserData()
     {
-        if (PlayerPrefs.HasKey("Name"))
+        if (PlayerPrefs.HasKey(nameKey))
         {
-            string name = PlayerPrefs.GetString("Name");
-            int cash = PlayerPrefs.GetInt("Cash");
-            int balance = PlayerPrefs.GetInt("Balance");
-            userData = new UserData(name, cash, balance);
+            string name = PlayerPrefs.GetString(nameKey);
+            int cash = PlayerPrefs.GetInt(cashKey);
+            int balance = PlayerPrefs.GetInt(balanceKey);
+            string id = PlayerPrefs.GetString(idKey);
+            string password = PlayerPrefs.GetString(passwordKey);
+            
+            userData = new UserData(name, cash, balance, id, password);
         }
         else
         {
-            userData = new UserData("이현", 100000, 50000);
+            userData = new UserData("이현", 100000, 50000, "", "");
         }
     }
 }
