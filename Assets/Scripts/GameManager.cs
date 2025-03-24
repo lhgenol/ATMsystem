@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        // ResetUserData();
+        // PlayerPrefs.DeleteAll();
         LoadUserData();
     }
 
@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
             userInfo = FindObjectOfType<UserInfo>();
         }
         
-        // UpdateName("OOO");
-        // UpdateCash(0);
-        // UpdateBalance(0);
+        // UpdateName("이현");
+        // UpdateCash(100001);
+        // UpdateBalance(50001);
         
         SaveUserData();
     }
@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     {
         userData.name = newName;
         userInfo.Refresh();
-        
         SaveUserData();
     }
     
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
     {
         userData.cash += amount;
         userInfo.Refresh();
-        
         SaveUserData();
     }
 
@@ -60,21 +58,18 @@ public class GameManager : MonoBehaviour
     {
         userData.balance += amount;
         userInfo.Refresh();
-        
         SaveUserData();
     }
 
-    public void SaveUserData()  // 데이터 저장
+    public void SaveUserData()
     {
         PlayerPrefs.SetString("Name", userData.name);
         PlayerPrefs.SetInt("Cash", userData.cash);
         PlayerPrefs.SetInt("Balance", userData.balance);
         PlayerPrefs.Save();
-        
-        Debug.Log("Saved");
     }
 
-    public void LoadUserData()  // 데이터 로드
+    public void LoadUserData()
     {
         if (PlayerPrefs.HasKey("Name"))
         {
@@ -85,31 +80,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            userData = new UserData("이현", 100001, 50001);
+            userData = new UserData("이현", 100000, 50000);
         }
-        
-        Debug.Log("Loaded");
-    }
-
-    public void ResetUserData() // 데이터 삭제
-    {
-        PlayerPrefs.DeleteKey("Name");
-        PlayerPrefs.DeleteKey("Cash");
-        PlayerPrefs.DeleteKey("Balance");
-        PlayerPrefs.Save();
-        
-        userData = new UserData("이현", 100000, 50000);
-        
-        if (userInfo != null)
-        {
-            userInfo.Refresh();
-        }
-        
-        Debug.Log("Reseted");
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveUserData();
     }
 }
