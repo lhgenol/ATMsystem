@@ -25,22 +25,9 @@ public class PopupLogin : MonoBehaviour
 
     public void Login()
     {
-        // UserData userData = GameManager.Instance.userData;
+        // UserDataList loadUserData = GameManager.Instance.LoadUserData();
         
-        // if (inputID.text == userData.id && inputPS.text == userData.password)
-        // {
-        //     Debug.Log("로그인 성공");
-        //     PopupLoginPanel.SetActive(false);
-        //     PopupBank.SetActive(true);
-        // }
-        // else
-        // {
-        //     Debug.Log("로그인 실패");
-        //     inputID.text = "";
-        //     inputPS.text = "";
-        // }
-
-        UserData loadUserData = GameManager.Instance.LoadUserData();
+        GameManager.Instance.LoadUserData();
 
         if (string.IsNullOrWhiteSpace(inputID.text))
         {
@@ -55,26 +42,33 @@ public class PopupLogin : MonoBehaviour
             OpenErrorPanel();
             return;
         }
+        
+        UserData loginUser = GameManager.Instance.FindUserID(inputID.text); // ID로 유저 찾기
 
-        if (loadUserData == null)
+        if (loginUser == null)
         {
-            errorText.text = "해당 데이터가 없습니다.";
+            errorText.text = "해당 ID의 유저가 없습니다.";
             OpenErrorPanel();
             inputID.text = "";
             inputPS.text = "";
             return;
         }
 
-        if (inputID.text == loadUserData.id && inputPS.text == loadUserData.password)
+        if (inputID.text == loginUser.id && inputPS.text == loginUser.password)
         {
+            GameManager.Instance.SetUserData(loginUser); // 로그인한 유저 설정
+            
             PopupLoginPanel.SetActive(false);
             PopupBank.SetActive(true);
             
-            Debug.Log("로그인 성공");
+            Debug.Log($"로그인 성공: {loginUser.name}");
+            
+            inputID.text = "";
+            inputPS.text = "";
         }
         else
         {
-            errorText.text = "ID 또는 Password가 일치하지 않습니다.";
+            errorText.text = "ID 또는 Password가\n일치하지 않습니다.";
             OpenErrorPanel();
             inputID.text = "";
             inputPS.text = "";

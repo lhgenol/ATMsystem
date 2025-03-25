@@ -54,9 +54,18 @@ public class PopupSignUp : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.SetUserData(new UserData(name: inputName.text, cash: 100000, balance: 50000,
-                id: inputId.text, password: inputPassword.text));
+            // GameManager.Instance.SetUserData(new UserData(name: inputName.text, cash: 100000, balance: 50000,
+            //     id: inputId.text, password: inputPassword.text));
+            
+            UserData newUser = new UserData(inputName.text, 100000, 50000, inputId.text, inputPassword.text);
+        
+            GameManager.Instance.SetUserData(newUser);
         }
+
+        inputId.text = "";
+        inputName.text = "";
+        inputPassword.text = "";
+        inputPasswordConfirm.text = "";
         
         ClosePopupSignUp();
         

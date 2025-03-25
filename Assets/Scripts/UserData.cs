@@ -21,3 +21,9 @@ public class UserData
         this.password = password;
     }
 }
+
+[System.Serializable]
+public class UserDataList
+{
+    public List<UserData> users = new List<UserData>();
+}
