@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [field: SerializeField] public UserData userData { get; private set; }
     
-    private UserDataList userDataList;
+    private UserDataList userDataList = new UserDataList();
     private UserData loginUser;
     
     public UserInfo userInfo;
@@ -59,11 +59,6 @@ public class GameManager : MonoBehaviour
 
     public void SetUserData(UserData newUserData)   // 새로운 유저 데이터 설정
     {
-        if (userDataList == null)
-        {
-            userDataList = new UserDataList();
-        }
-        
         // UserData existingUser = userDataList.users.Find(user => user.id == newUserData.id);
         
         // 중복 유저 확인
@@ -92,22 +87,13 @@ public class GameManager : MonoBehaviour
         
         userData = newUserData;
         loginUser = newUserData;
+        userInfo?.Refresh();
         SaveUserData();
-        
-        if (userInfo != null)
-        {
-            userInfo.Refresh();
-        }
     }
 
     // 유저 데이터를 JSON 파일에 저장
     public void SaveUserData()
     {
-        if (userDataList == null)
-        {
-            userDataList = new UserDataList();
-        }
-        
         string json = JsonUtility.ToJson(userDataList, true); // userDataList를 JSON 문자열로 직렬화
         File.WriteAllText(savePath, json);  // JSON 문자열을 경로에 저장
         Debug.Log($"유저 데이터리스트 저장 성공: {json}");
@@ -134,13 +120,6 @@ public class GameManager : MonoBehaviour
 
     public UserData FindUserID(string userID)
     {
-        if (userDataList == null || userDataList.users == null)
-        {
-            Debug.Log("유저 데이터 리스트 정보가 없습니다.");
-            userDataList = new UserDataList();
-            return null;
-        }
-
         foreach (UserData user in userDataList.users)   // ID가 일치하는 유저를 찾아서 반환
         {
             if (user.id == userID)
