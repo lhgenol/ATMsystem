@@ -25,8 +25,6 @@ public class PopupLogin : MonoBehaviour
 
     public void Login()
     {
-        // UserDataList loadUserData = GameManager.Instance.LoadUserData();
-        
         GameManager.Instance.LoadUserData();
 
         if (string.IsNullOrWhiteSpace(inputID.text))

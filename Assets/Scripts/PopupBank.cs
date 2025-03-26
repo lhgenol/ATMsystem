@@ -46,6 +46,7 @@ public class PopupBank : MonoBehaviour
         buttonPanel.SetActive(true);
     }
 
+    // 입금 처리
     public void DepositAmount(int amount)
     {
         if (GameManager.Instance.userData.cash >= amount)
@@ -59,6 +60,7 @@ public class PopupBank : MonoBehaviour
         }
     }
 
+    // 출금 처리
     public void WithdrawAmount(int amount)
     {
         if (GameManager.Instance.userData.balance >= amount)
@@ -72,6 +74,7 @@ public class PopupBank : MonoBehaviour
         }
     }
 
+    // 송금 처리
     public void TransferAmount()
     {
         string targetID = transferUserInput.text; // 송금 대상의 ID 가져오기
@@ -129,13 +132,8 @@ public class PopupBank : MonoBehaviour
         transferUserInput.text = "";
         transferAmountInput.text = "";
     }
-    
-    private void ShowError(string massage)
-    {
-        errorText.text = massage;
-        errorPanel.SetActive(true);
-    }
 
+    // 금액 입력값 입금 처리
     public void DepositInputAmount()
     {
         if(int.TryParse(depositInput.text, out int amount))
@@ -150,6 +148,7 @@ public class PopupBank : MonoBehaviour
         depositInput.text = "";
     }
 
+    // 금액 입력값 출금 처리
     public void WithdrawInputAmount()
     {
         if (int.TryParse(withdrawInput.text, out int amount))
@@ -162,6 +161,12 @@ public class PopupBank : MonoBehaviour
         }
         
         withdrawInput.text = "";
+    }
+    
+    private void ShowError(string massage)
+    {
+        errorText.text = massage;
+        errorPanel.SetActive(true);
     }
 
     public void GotoLoginPanel()

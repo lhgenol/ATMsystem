@@ -54,12 +54,10 @@ public class PopupSignUp : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            // GameManager.Instance.SetUserData(new UserData(name: inputName.text, cash: 100000, balance: 50000,
-            //     id: inputId.text, password: inputPassword.text));
-            
+            // UserData 객체 생성. 입력한 정보와 기본 금액을 반영
             UserData newUser = new UserData(inputName.text, 100000, 50000, inputId.text, inputPassword.text);
         
-            GameManager.Instance.SetUserData(newUser);
+            GameManager.Instance.SetUserData(newUser);  // 데이터를 GameManager에 저장
         }
 
         inputId.text = "";

@@ -16,6 +16,7 @@ public class UserInfo : MonoBehaviour
         Refresh();
     }
 
+    // 유저 데이터를 UI에 표시
     public void Refresh()
     {
         UserData userData = GameManager.Instance.userData;

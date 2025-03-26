@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 [System.Serializable]
-public class UserData
+public class UserData   // 데이터를 저장하는 용도로만 활용
 {
     public string name;
     public int cash;

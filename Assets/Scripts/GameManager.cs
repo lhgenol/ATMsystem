@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // userDataList에서 ID 찾기
     public UserData FindUserID(string userID)
     {
         foreach (UserData user in userDataList.users)   // ID가 일치하는 유저를 찾아서 반환
@@ -131,13 +132,7 @@ public class GameManager : MonoBehaviour
         return null;
     }
     
-    public void UpdateName(string newName)
-    {
-        userData.name = newName;
-        userInfo.Refresh();
-        SaveUserData();
-    }
-    
+    // 현금 업데이트
     public void UpdateCash(int amount)
     {
         userData.cash += amount;
@@ -145,6 +140,7 @@ public class GameManager : MonoBehaviour
         SaveUserData();
     }
 
+    // 잔액 업데이트
     public void UpdateBalance(int amount)
     {
         userData.balance += amount;
